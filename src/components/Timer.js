@@ -22,13 +22,19 @@ function Timer() {
       setIsExpired(true);
       audioRef.current.play();
     }
-    
+
     const handleKeyPress = (event) => {
       if (event.code === "Space" && isRunning) {
         handlePause();
       }
       if (event.code === "Space" && !isRunning) {
         handleStart();
+      }
+      if (event.code === "ArrowDown" && !isRunning) {
+        setTime(prevTime => prevTime - 100);
+      }
+      if (event.code === "ArrowUp" && !isRunning) {
+        setTime(prevTime => prevTime + 100);
       }
     };
 

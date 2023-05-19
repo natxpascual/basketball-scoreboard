@@ -27,18 +27,25 @@ function ShotClock() {
       />
     }
     const handleKeyPress = (event) => {
-      if (event.code === "Space" && isRunning) {
+      if (event.code === "Enter" && isRunning) {
         handlePause();
       }
-      if (event.code === "Space" && !isRunning) {
+      if (event.code === "Enter" && !isRunning) {
         handleStart();
       }
-      if (event.code === "Enter" && isRunning) {
-        handleReset();
+      if (event.code === "ArrowLeft" && !isRunning) {
+        setTime(prevTime => prevTime - 100);
+      }
+      if (event.code === "ArrowRight" && !isRunning) {
+        setTime(prevTime => prevTime + 100);
+      }
+      if (event.code === "PageUp") {
+        setTime(24900);
         handleStart();
       }
-      if (event.code === "'" && !isRunning) {
-        handleReset();
+      if (event.code === "PageDown") {
+        setTime(14900);
+        handleStart();
       }
     };
 
