@@ -83,7 +83,6 @@ function Scoreboard() {
     <div className="scoreboard-container">
       <div className="scoreboard-heading">
       </div>
-
       <div className="scoreboard-main">
         <div className="team-container-L">
           <Score
