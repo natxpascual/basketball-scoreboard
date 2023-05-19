@@ -36,6 +36,9 @@ function Timer() {
       if (event.code === "ArrowUp" && !isRunning) {
         setTime(prevTime => prevTime + 100);
       }
+      if (event.code === "Home") {
+        handleReset();
+      }
     };
 
     document.addEventListener("keydown", handleKeyPress);

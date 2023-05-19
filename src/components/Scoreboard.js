@@ -1,26 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Timer from './Timer';
 import ShotClock from './ShotClock';
-import TeamNames from './TeamNames';
 import buzzerSound from './buzzer-long.mp3';
 import Score from './Score';
-import Fouls from './Fouls';
 import "./Scoreboard.css";
 
 function Scoreboard() {
-  
-  const [team1Name, setTeam1Name] = useState('Home');
-  const [team2Name, setTeam2Name] = useState('Away');
-  const teamNames = { team1Name, team2Name };
   const [team1Score, setTeam1Score] = useState(0);
   const [team2Score, setTeam2Score] = useState(0);
   const [team1Fouls, setTeam1Fouls] = useState(0);
   const [team2Fouls, setTeam2Fouls] = useState(0);
-  const [isTimerRunning, setIsTimerRunning] = useState(false);
-  const [gameClockTime, setGameTime] = useState(600); // 10 minutes in seconds
-  const [gameClockPaused, setGameClockPaused] = useState(true);
-  const [shotClockTime, setShotClock] = useState(24); // 24 seconds
-  const [shotClockPaused, setShotClockPaused] = useState(true);
   const audioRef = useRef(null);
   
 
@@ -51,6 +40,9 @@ function Scoreboard() {
         audioRef.current.play();
         audioRef.current.currentTime = 0;
       }
+      else if (event.key === 'Home') {
+        handleReset();
+      }
     };
 
     document.addEventListener('keydown', handleKeyDown);
@@ -65,24 +57,11 @@ function Scoreboard() {
     setTeam2Score(0);
     setTeam1Fouls(0);
     setTeam2Fouls(0);
-    setGameTime(600000);
-    setShotClock(24000);
-    setIsTimerRunning(false);
   };
-
-  const handleStartStopTimer = () => {
-    setIsTimerRunning((prevState) => !prevState);
-  };
-
+  
   const handleBuzzer = () => {
     const audio = new Audio('/buzzer-long.mp3');
     audio.play();
-  };
-
-  const handleTimeUp = () => {
-    setGameClockPaused(true);
-    setShotClockPaused(true);
-    handleBuzzer();
   };
 
   const Button = () => {
@@ -103,7 +82,6 @@ function Scoreboard() {
   return (
     <div className="scoreboard-container">
       <div className="scoreboard-heading">
-        {/* <TeamNames teamNames={teamNames} onTeamNameChange={handleTeamNameChange} /> */}
       </div>
 
       <div className="scoreboard-main">
@@ -137,10 +115,9 @@ function Scoreboard() {
             fouls={team2Fouls}
           />
         </div>
+
       </div>
-      <div className="scoreboard__controls">
-          <button onClick={handleReset}>Reset</button>
-      </div>
+
 
         <audio ref={audioRef} src={buzzerSound} />
     </div>

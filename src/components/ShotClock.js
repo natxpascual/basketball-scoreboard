@@ -47,6 +47,9 @@ function ShotClock() {
         setTime(14900);
         handleStart();
       }
+      if (event.code === "Home") {
+        handleReset();
+      }
     };
 
     document.addEventListener("keydown", handleKeyPress);
